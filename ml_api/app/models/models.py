@@ -5,16 +5,16 @@ class UserRequestIn(BaseModel):
     """..."""
 
     text: str = Field(...,
-                     max_length=500,
-                     description="Placeholder"
+                        max_length=500,
+                        description="Placeholder"
                      )
 
 
 class EntityOut(BaseModel):
 
     text: str = Field(...,
-                     max_length=500,
-                     description="Placeholder"
+                        max_length=500,
+                        description="Placeholder"
                      )
 
 
@@ -23,4 +23,4 @@ class EntitiesOut(BaseModel):
     user_text: Dict[str, str] = Field(...,
                                          max_length=500,
                                          description="Placeholder"
-                                        )
+                                    )

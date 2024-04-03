@@ -12,7 +12,7 @@ from app.models.models import UserRequestIn
 
 router = APIRouter()
 
-@router.post("/ds_api", response_model=EntitiesOut)
+@router.post("/ml_api", response_model=EntitiesOut)
 def classify_input(user_request: UserRequestIn):
     text = user_request.text
 
