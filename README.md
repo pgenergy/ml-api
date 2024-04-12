@@ -1,8 +1,7 @@
-# ml-fastapi
-Machine Learning API for Energyleaf WebApp
+# ml-api
+Machine Learning API for Energyleaf WebApp with FastAPI and Docker
 
 ## The resulting directory structure
-
 
 The directory structure looks like this: 
 
@@ -41,10 +40,7 @@ The directory structure looks like this:
 │   └── main            <- Experiments which are part of the result.
 │
 ├── data                <- Storage for Data and Scripts to download or create data.
-```
-
-## Environment Variables
-If the service is configurable in any way, please provide descriptions of options and value ranges etc.  
+``` 
 
 ## Install dependencies
 
@@ -56,13 +52,12 @@ $ pip install -r requirements.txt
 ````
 ## Running in Docker container
 
-Install docker and run
+Install docker and run in command line
 ````
 $ docker-compose up
 ````
-in command line.
 
-After the image is built and the container has started you can start interacting with it, unless you have configured the ports differently it should be reachable under `http://localhost:8000/`
+After the image is built and the container has started you can start interacting with it under `http://localhost:8000/`
 
 
 ## Access OpenAPI/Swagger Interface
