@@ -21,6 +21,30 @@ app = FastAPI(
     },
 )
 
+# Swagger
+openapi_spec = {
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Energyleaf Machine Learning API",
+        "version": "1.0.0",
+        "description": "FastAPI zur Integration von ML-Modellen in die Energyleaf WebApp"
+    },
+    "paths": {
+        "/test": {
+            "get": {
+                "summary": "Erhalte alle Elemente",
+                "responses": {
+                    "200": {
+                        "description": "Erfolgreiche Antwort"
+                    }
+                }
+            }
+        }
+    }
+}
+app.openapi_schema = openapi_spec
+
+
 origins = [
     "http://localhost:4200",
 ]
