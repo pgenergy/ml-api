@@ -26,3 +26,22 @@ class EntitiesOut(BaseModel):
                                          max_length=500,
                                          description="Placeholder"
                                     )
+
+class ElectricityInput(BaseModel):
+    timestamp: str
+    power: float
+
+
+class ElectricityOutput(BaseModel):
+    timestamp: str
+    power: float
+    classification: str
+
+
+class DeviceClassificationRequest(BaseModel):
+    electricity: Dict[str, ElectricityInput]
+
+
+class DeviceClassificationResponse(BaseModel):
+    electricity: Dict[str, ElectricityOutput]
+    classification_results: Dict[str, str]  # Beispiel: {"Reading1": "Kühlschrank", "Reading2": "Gefrierschrank", ...}
