@@ -3,11 +3,9 @@ import numpy as np
 import pandas as pd
 
 from app.tasks.load_models import models
+from app.models.models import DeviceClassificationResponse, DeviceClassificationRequest, ElectricityOutput
 
-#def predict(electricity_consumption: dict) -> Dict:
-def predict() -> Dict:
-
-    test = {}
+def predict(electricity_consumption: DeviceClassificationRequest) -> Dict:
 
     new_data = pd.DataFrame({
         'Timestamp': ['2024-04-17 08:00:00', '2024-04-17 09:00:00', '2024-04-17 10:00:00', '2022-01-10 05:05:05'],
@@ -17,10 +15,9 @@ def predict() -> Dict:
         'Hour': [8, 9, 10, 5],
         'Minute': [0, 0, 0, 5],
         'Second': [0, 0, 0, 5],
-        'power': [0.5, 1.2, 10.8, 5.0]  # Beispielwerte für den Stromverbrauch
+        'power': [0.5, 1.2, 10.8, 5.0]
     })
 
-    # Extrahiere die erforderlichen Merkmale aus der Timestamp-Spalte von new_data
     new_data['Year'] = pd.to_datetime(new_data['Timestamp']).dt.year
     new_data['Month'] = pd.to_datetime(new_data['Timestamp']).dt.month
     new_data['Date'] = pd.to_datetime(new_data['Timestamp']).dt.day
@@ -28,7 +25,6 @@ def predict() -> Dict:
     new_data['Minute'] = pd.to_datetime(new_data['Timestamp']).dt.minute
     new_data['Second'] = pd.to_datetime(new_data['Timestamp']).dt.second
 
-    # Entferne die Timestamp-Spalte, da sie nicht mehr benötigt wird
     new_data.drop(columns=['Timestamp'], inplace=True)
 
     model = models["device_classification"]
@@ -37,10 +33,51 @@ def predict() -> Dict:
 
     print("Test in predict")
 
-    for i, probs in enumerate(predictions_prob):
-        max_prob = max(probs)  # Höchste Wahrscheinlichkeit für diese Vorhersage
-        predicted_class = model.classes_[probs.argmax()]  # Vorhergesagte Klasse mit höchster Wahrscheinlichkeit
-        print("Vorhersage für Zeitpunkt {}: {} mit Genauigkeit {:.2f}%".format(i+1, predicted_class, max_prob*100))
-        print(new_data['Year'][i])
+    classification = ""
 
-    return test
+    result = {}
+
+    print(electricity_consumption)
+
+    for key, value in electricity_consumption.electricity.items():
+        
+        print(value.timestamp)
+        print(type(pd.to_datetime(value.timestamp)))
+
+        reading = pd.Series({
+            'Timestamp': value.timestamp,
+        })
+
+        reading["Year"] = pd.to_datetime(reading['Timestamp']).year
+        reading["Month"] = pd.to_datetime(reading['Timestamp']).month
+        reading["Date"] = pd.to_datetime(reading['Timestamp']).day
+        reading["Hour"] = pd.to_datetime(reading['Timestamp']).hour
+        reading["Minute"] = pd.to_datetime(reading['Timestamp']).minute
+        reading["Second"] = pd.to_datetime(reading['Timestamp']).second
+        reading["power"] = value.power
+
+        #reading.drop(columns=['Timestamp'], inplace=True)
+        reading = reading.drop(labels=['Timestamp'])
+
+        print(reading)
+
+        reading = reading.to_frame().T
+
+        print(reading)
+
+        predictions_prob = model.predict_proba(reading)
+
+        for i, probs in enumerate(predictions_prob):
+            max_prob = max(probs) 
+            predicted_class = model.classes_[probs.argmax()] 
+            print("Vorhersage für Zeitpunkt {}: {} mit Genauigkeit {:.2f}%".format(i+1, predicted_class, max_prob*100))
+            print(new_data['Year'][i])
+            classification = predicted_class
+        
+        result[key] = ElectricityOutput(
+            timestamp=value.timestamp,
+            power=value.power,
+            classification=classification
+        )
+
+    return result

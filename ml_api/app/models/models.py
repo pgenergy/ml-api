@@ -1,5 +1,6 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, validator
 from typing import Dict
+import pandas as pd
 
 class UserRequestIn(BaseModel):
     """ Example model for a user request with text parameter."""
@@ -44,4 +45,3 @@ class DeviceClassificationRequest(BaseModel):
 
 class DeviceClassificationResponse(BaseModel):
     electricity: Dict[str, ElectricityOutput]
-    classification_results: Dict[str, str]  # Beispiel: {"Reading1": "Kühlschrank", "Reading2": "Gefrierschrank", ...}

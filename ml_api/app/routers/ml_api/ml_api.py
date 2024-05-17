@@ -10,7 +10,6 @@ from app.models.models import UserRequestIn, EntitiesOut
 from app.models.models import DeviceClassificationRequest, DeviceClassificationResponse
 
 
-
 from src.classification.classify_devices import predict
 
 
@@ -27,12 +26,6 @@ def classify_input(user_request: UserRequestIn):
 def classify_input(user_request: DeviceClassificationRequest):
     print(user_request)
 
-    test = predict()
+    test1 = predict(user_request)
 
-    test = {
-        "timestamp": "2024-05-10T12:35:00",
-        "power": 1800.0,
-        "classification": "Gefrierschrank"
-    }
-
-    return {"user_text": {"electricity" : test}}
+    return {"electricity" : test1}
