@@ -7,29 +7,7 @@ from app.models.models import DeviceClassificationResponse, DeviceClassification
 
 def predict(electricity_consumption: DeviceClassificationRequest) -> Dict:
 
-    new_data = pd.DataFrame({
-        'Timestamp': ['2024-04-17 08:00:00', '2024-04-17 09:00:00', '2024-04-17 10:00:00', '2022-01-10 05:05:05'],
-        'Year': [2024, 2024, 2024, 2024],
-        'Month': [4, 4, 4, 1],
-        'Date': [17, 17, 17, 10],
-        'Hour': [8, 9, 10, 5],
-        'Minute': [0, 0, 0, 5],
-        'Second': [0, 0, 0, 5],
-        'power': [0.5, 1.2, 10.8, 5.0]
-    })
-
-    new_data['Year'] = pd.to_datetime(new_data['Timestamp']).dt.year
-    new_data['Month'] = pd.to_datetime(new_data['Timestamp']).dt.month
-    new_data['Date'] = pd.to_datetime(new_data['Timestamp']).dt.day
-    new_data['Hour'] = pd.to_datetime(new_data['Timestamp']).dt.hour
-    new_data['Minute'] = pd.to_datetime(new_data['Timestamp']).dt.minute
-    new_data['Second'] = pd.to_datetime(new_data['Timestamp']).dt.second
-
-    new_data.drop(columns=['Timestamp'], inplace=True)
-
     model = models["device_classification"]
-
-    predictions_prob = model.predict_proba(new_data)
 
     print("Test in predict")
 
@@ -56,14 +34,7 @@ def predict(electricity_consumption: DeviceClassificationRequest) -> Dict:
         reading["Second"] = pd.to_datetime(reading['Timestamp']).second
         reading["power"] = value.power
 
-        #reading.drop(columns=['Timestamp'], inplace=True)
-        reading = reading.drop(labels=['Timestamp'])
-
-        print(reading)
-
-        reading = reading.to_frame().T
-
-        print(reading)
+        reading = reading.drop(labels=['Timestamp']).to_frame().T
 
         predictions_prob = model.predict_proba(reading)
 
@@ -71,7 +42,6 @@ def predict(electricity_consumption: DeviceClassificationRequest) -> Dict:
             max_prob = max(probs) 
             predicted_class = model.classes_[probs.argmax()] 
             print("Vorhersage für Zeitpunkt {}: {} mit Genauigkeit {:.2f}%".format(i+1, predicted_class, max_prob*100))
-            print(new_data['Year'][i])
             classification = predicted_class
         
         result[key] = ElectricityOutput(
