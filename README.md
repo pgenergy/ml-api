@@ -6,11 +6,10 @@ Machine Learning API for Energyleaf WebApp with FastAPI and Docker
 The directory structure looks like this: 
 
 ```
-├── README.md           <- The top-level README for developers using this project.
-├── requirements.txt    <- The basic requirements from which the environment can be built.
+├── README.md           <- Top-level README.
+├── requirements.txt    <- Requirements from which the environment can be built.
 ├── docker-compose.yaml
-├── Dockerfile          <- Central Dockerfile for the Project. Ready for
-│                          Deployment from the beginning.
+├── Dockerfile          <- Central Dockerfile for the Project
 │
 ├── app                 <- App Folder which defines the Application.
 │   ├── __init__.py
@@ -44,10 +43,11 @@ The directory structure looks like this:
 
 ## Install dependencies
 
+It is assumed that Python is installed on the device.
 Create a virtual python3 environment at top level of folder structure and install requirements.text inside that environment, e.g:  
 ````
 $ python3 -m venv env
-$ source env/bin/activate
+$ source env/bin/activate (Sometimes the activate function is located in another folder)
 $ pip install -r requirements.txt
 ````
 ## Running in Docker container
