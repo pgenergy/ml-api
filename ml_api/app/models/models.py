@@ -1,6 +1,11 @@
 from pydantic import BaseModel, Field, validator
+from fastapi import FastAPI, Header, Depends, HTTPException
 from typing import Dict
 import pandas as pd
+
+from app.settings import Settings
+
+settings = Settings()
 
 class UserRequestIn(BaseModel):
     """ Example model for a user request with text parameter."""
@@ -45,3 +50,9 @@ class DeviceClassificationRequest(BaseModel):
 
 class DeviceClassificationResponse(BaseModel):
     electricity: Dict[str, ElectricityOutput]
+
+
+def check_api_key(api_key: str = Header(...)):
+    if api_key != settings.api_key:
+        raise HTTPException(status_code=403, detail="Invalid API Key")
+    return api_key
