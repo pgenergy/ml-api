@@ -2,9 +2,10 @@ fastapi==0.109.1
 pydantic==1.10.13
 uvicorn[standard]==0.17.0
 
-scikit-learn
+docker
 matplotlib
-seaborn
-pandas
 numpy
+pandas
+seaborn
+scikit-learn
 scipy
