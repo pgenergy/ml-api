@@ -1,11 +1,12 @@
-fastapi==0.109.1
-pydantic==1.10.13
-uvicorn[standard]==0.17.0
+fastapi==0.111.0
+pydantic==2.7.3
+pydantic-settings==2.3.0
+uvicorn[standard]==0.18.0
 
 docker
 matplotlib
 numpy
 pandas
 seaborn
-scikit-learn
+scikit-learn==1.4.2
 scipy

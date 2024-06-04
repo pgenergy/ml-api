@@ -4,6 +4,7 @@ import pickle as pkl
 import pandas as pd
 import os
 
+
 def load_models():
     """
     load the models from disk
@@ -24,5 +25,6 @@ def load_models():
     print(models["device_classification"])
 
     return models
+
 
 models = load_models()
