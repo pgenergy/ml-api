@@ -1,11 +1,16 @@
+from fastapi.security import APIKeyHeader
 from pydantic import BaseModel, Field, validator
-from fastapi import FastAPI, Header, Depends, HTTPException
+from fastapi import FastAPI, Header, Depends, HTTPException, Security
 from typing import Dict
 import pandas as pd
+from starlette import status
 
 from app.settings import Settings
 
 settings = Settings()
+
+api_key_header = APIKeyHeader(name="x-api-key", auto_error=False)
+
 
 class UserRequestIn(BaseModel):
     """ Example model for a user request with text parameter."""
@@ -33,6 +38,7 @@ class EntitiesOut(BaseModel):
                                          description="Placeholder"
                                     )
 
+
 class ElectricityInput(BaseModel):
     timestamp: str
     power: float
@@ -52,7 +58,7 @@ class DeviceClassificationResponse(BaseModel):
     electricity: Dict[str, ElectricityOutput]
 
 
-def check_api_key(api_key: str = Header(...)):
+def check_api_key(api_key: str = Security(api_key_header)) -> str:
     if api_key != settings.api_key:
-        raise HTTPException(status_code=403, detail="Invalid API Key")
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or missing API Key")
     return api_key

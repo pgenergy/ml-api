@@ -5,6 +5,7 @@ import pandas as pd
 from app.tasks.load_models import models
 from app.models.models import DeviceClassificationResponse, DeviceClassificationRequest, ElectricityOutput
 
+
 def predict(electricity_consumption: DeviceClassificationRequest) -> Dict:
 
     model = models["device_classification"]

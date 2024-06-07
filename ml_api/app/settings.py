@@ -1,9 +1,10 @@
 """ This module provides the applications settings
 """
 
-from typing import Optional
-from pydantic import BaseSettings
+from typing import Optional, Annotated
 
+from pydantic import StringConstraints
+from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
@@ -12,13 +13,13 @@ class Settings(BaseSettings):
     """
 
     origin: Optional[str] = None
-    api_version = "v2"
-    api_key="2LXJfexcp4Salw4zXVQVPCiUEI97Wnl8"
-
+    api_version: str = "v2"
+    api_key: Annotated[str, StringConstraints(strip_whitespace=True, min_length=8)]
 
     class Config:
         """This class provides the config for the applications settings"""
 
         env_file = ".env"
+
 
 settings = Settings()

@@ -3,7 +3,7 @@ import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers.ml_api import ml_api
+from app.routers.ml_api.v3 import ml_api as ml_api_v3
 from app.settings import Settings
 
 settings = Settings()
@@ -15,35 +15,10 @@ app = FastAPI(
     version=settings.api_version,
     terms_of_service="#",
     contact={
-        "company": "Energyleaf Uni Oldenburg",
-        "url": "...",
-        "email": "...",
+        "name": "Energyleaf Uni Oldenburg",
+        "url": "https://energyleaf.de",
     },
 )
-
-# Swagger
-openapi_spec = {
-    "openapi": "3.0.3",
-    "info": {
-        "title": "Energyleaf Machine Learning API",
-        "version": "1.0.0",
-        "description": "FastAPI zur Integration von ML-Modellen in die Energyleaf WebApp"
-    },
-    "paths": {
-        "/test": {
-            "get": {
-                "summary": "Erhalte alle Elemente",
-                "responses": {
-                    "200": {
-                        "description": "Erfolgreiche Antwort"
-                    }
-                }
-            }
-        }
-    }
-}
-app.openapi_schema = openapi_spec
-
 
 origins = [
     "http://localhost:4200",
@@ -61,7 +36,7 @@ app.add_middleware(
     expose_headers=["Content-Disposition"],
 )
 
-app.include_router(ml_api.router)
+app.include_router(ml_api_v3.router, prefix="/v3")
 
 
 @app.on_event("startup")
