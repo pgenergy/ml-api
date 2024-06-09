@@ -1,5 +1,4 @@
 from typing import Dict
-import numpy as np
 import pandas as pd
 
 from app.tasks.load_models import models
