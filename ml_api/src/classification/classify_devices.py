@@ -1,27 +1,18 @@
-from typing import Dict, List
+from typing import Dict
 import numpy as np
 import pandas as pd
 
 from app.tasks.load_models import models
-from app.models.models import DeviceClassificationResponse, DeviceClassificationRequest, ElectricityOutput
+from app.models.models import DeviceClassificationRequest, ElectricityOutput
 
 
 def predict(electricity_consumption: DeviceClassificationRequest) -> Dict:
 
     model = models["device_classification"]
-
-    print("Test in predict")
-
     classification = ""
-
     result = {}
 
-    print(electricity_consumption)
-
     for key, value in electricity_consumption.electricity.items():
-        
-        print(value.timestamp)
-        print(type(pd.to_datetime(value.timestamp)))
 
         reading = pd.Series({
             'Timestamp': value.timestamp,
@@ -39,10 +30,8 @@ def predict(electricity_consumption: DeviceClassificationRequest) -> Dict:
 
         predictions_prob = model.predict_proba(reading)
 
-        for i, probs in enumerate(predictions_prob):
-            max_prob = max(probs) 
+        for probs in enumerate(predictions_prob):
             predicted_class = model.classes_[probs.argmax()] 
-            print("Vorhersage für Zeitpunkt {}: {} mit Genauigkeit {:.2f}%".format(i+1, predicted_class, max_prob*100))
             classification = predicted_class
         
         result[key] = ElectricityOutput(
