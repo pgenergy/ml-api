@@ -4,9 +4,7 @@ pydantic-settings==2.3.0
 uvicorn[standard]==0.18.0
 
 docker
-matplotlib
 numpy
 pandas
-seaborn
 scikit-learn==1.4.2
 scipy

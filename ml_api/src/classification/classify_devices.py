@@ -29,8 +29,8 @@ def predict(electricity_consumption: DeviceClassificationRequest) -> Dict:
 
         predictions_prob = model.predict_proba(reading)
 
-        for probs in enumerate(predictions_prob):
-            predicted_class = model.classes_[probs.argmax()] 
+        for i, probs in enumerate(predictions_prob):
+            predicted_class = model.classes_[probs.argmax()]
             classification = predicted_class
         
         result[key] = ElectricityOutput(

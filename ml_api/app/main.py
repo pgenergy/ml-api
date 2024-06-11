@@ -2,8 +2,6 @@ import logging
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
-from app.routers import ml_api
 from app.routers.ml_api.v3 import ml_api as ml_api_v3
 from app.settings import Settings
 

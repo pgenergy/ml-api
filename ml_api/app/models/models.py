@@ -1,8 +1,7 @@
 from fastapi.security import APIKeyHeader
-from pydantic import BaseModel, Field, validator
-from fastapi import FastAPI, Header, Depends, HTTPException, Security
+from pydantic import BaseModel, Field
+from fastapi import HTTPException, Security
 from typing import Dict
-import pandas as pd
 from starlette import status
 
 from app.settings import Settings
