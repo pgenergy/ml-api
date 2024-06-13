@@ -2,14 +2,14 @@ from typing import Dict
 import pandas as pd
 
 from app.tasks.load_models import models
-from app.models.models import DeviceClassificationRequest, ElectricityOutput
+from app.models.models import DeviceClassificationRequest, DeviceClassificationResponse, ElectricityOutput
+from collections import defaultdict
 
 
 def predict(electricity_consumption: DeviceClassificationRequest) -> Dict:
 
     model = models["device_classification"]
-    classification = ""
-    result = {}
+    results = []
 
     for key, value in electricity_consumption.electricity.items():
 
@@ -29,14 +29,19 @@ def predict(electricity_consumption: DeviceClassificationRequest) -> Dict:
 
         predictions_prob = model.predict_proba(reading)
 
+        class_probabilities = defaultdict(float)
         for i, probs in enumerate(predictions_prob):
-            predicted_class = model.classes_[probs.argmax()]
-            classification = predicted_class
+            for j, prob in enumerate(probs):
+                class_probabilities[model.classes_[j]] = round(prob * 100, 2)
         
-        result[key] = ElectricityOutput(
+        sorted_probabilities = dict(sorted(class_probabilities.items(), key=lambda item: item[1], reverse=True))
+
+        electricity = ElectricityOutput(
             timestamp=value.timestamp,
             power=value.power,
-            classification=classification
+            dominant_classification=max(sorted_probabilities, key=sorted_probabilities.get),
+            classification=dict(sorted_probabilities)
         )
+        results.append(electricity)
 
-    return result
+    return DeviceClassificationResponse(electricity=results)

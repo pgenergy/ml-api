@@ -21,4 +21,4 @@ def classify_input(user_request: UserRequestIn, api_key: str = Security(check_ap
 def classify_input(user_request: DeviceClassificationRequest, api_key: str = Security(check_api_key)):
     predicted_devices = predict(user_request)
 
-    return {"electricity" : predicted_devices}
+    return predicted_devices
