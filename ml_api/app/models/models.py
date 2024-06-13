@@ -51,7 +51,7 @@ class ElectricityOutput(BaseModel):
 
 
 class DeviceClassificationRequest(BaseModel):
-    electricity: Dict[str, ElectricityInput]
+    electricity: List[ElectricityInput]
 
 
 class DeviceClassificationResponse(BaseModel):

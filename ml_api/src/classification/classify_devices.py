@@ -11,10 +11,10 @@ def predict(electricity_consumption: DeviceClassificationRequest) -> Dict:
     model = models["device_classification"]
     results = []
 
-    for key, value in electricity_consumption.electricity.items():
+    for consumption in electricity_consumption.electricity:
 
         reading = pd.Series({
-            'Timestamp': value.timestamp,
+            'Timestamp': consumption.timestamp,
         })
 
         reading["Year"] = pd.to_datetime(reading['Timestamp']).year
@@ -23,7 +23,7 @@ def predict(electricity_consumption: DeviceClassificationRequest) -> Dict:
         reading["Hour"] = pd.to_datetime(reading['Timestamp']).hour
         reading["Minute"] = pd.to_datetime(reading['Timestamp']).minute
         reading["Second"] = pd.to_datetime(reading['Timestamp']).second
-        reading["power"] = value.power
+        reading["power"] = consumption.power
 
         reading = reading.drop(labels=['Timestamp']).to_frame().T
 
@@ -37,8 +37,8 @@ def predict(electricity_consumption: DeviceClassificationRequest) -> Dict:
         sorted_probabilities = dict(sorted(class_probabilities.items(), key=lambda item: item[1], reverse=True))
 
         electricity = ElectricityOutput(
-            timestamp=value.timestamp,
-            power=value.power,
+            timestamp=consumption.timestamp,
+            power=consumption.power,
             dominant_classification=max(sorted_probabilities, key=sorted_probabilities.get),
             classification=dict(sorted_probabilities)
         )
