@@ -6,7 +6,6 @@ from app.models.models import UserRequestIn, EntitiesOut, check_api_key
 from app.models.models import DeviceClassificationRequest, DeviceClassificationResponse
 from src.classification.classify_devices import predict
 
-api_key_header = APIKeyHeader(name="api_key")
 router = APIRouter()
 
 
