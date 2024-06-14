@@ -3,6 +3,7 @@ import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers.ml_api.v3 import ml_api as ml_api_v3
+from app.routers.ml_api.v4 import ml_api as ml_api_v4
 from app.settings import Settings
 
 settings = Settings()
@@ -35,7 +36,8 @@ app.add_middleware(
     expose_headers=["Content-Disposition"],
 )
 
-app.include_router(ml_api_v3.router, prefix="/v3")
+app.include_router(ml_api_v3.router, prefix="/v3", deprecated=True)
+app.include_router(ml_api_v4.router, prefix="/v4")
 
 
 @app.on_event("startup")
