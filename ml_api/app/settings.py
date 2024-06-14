@@ -19,7 +19,7 @@ class Settings(BaseSettings):
     class Config:
         """This class provides the config for the applications settings"""
 
-        env_file = ".env"
+        env_file = "./.env"
 
 
 settings = Settings()

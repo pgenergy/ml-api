@@ -1,8 +1,7 @@
 from fastapi.security import APIKeyHeader
-from pydantic import BaseModel, Field, validator
-from fastapi import FastAPI, Header, Depends, HTTPException, Security
-from typing import Dict
-import pandas as pd
+from pydantic import BaseModel, Field
+from fastapi import HTTPException, Security
+from typing import Dict, List
 from starlette import status
 
 from app.settings import Settings
@@ -47,15 +46,16 @@ class ElectricityInput(BaseModel):
 class ElectricityOutput(BaseModel):
     timestamp: str
     power: float
-    classification: str
+    dominant_classification: str
+    classification: Dict[str, float]
 
 
 class DeviceClassificationRequest(BaseModel):
-    electricity: Dict[str, ElectricityInput]
+    electricity: List[ElectricityInput]
 
 
 class DeviceClassificationResponse(BaseModel):
-    electricity: Dict[str, ElectricityOutput]
+    electricity: List[ElectricityOutput]
 
 
 def check_api_key(api_key: str = Security(api_key_header)) -> str:

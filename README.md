@@ -19,7 +19,7 @@ The directory structure looks like this:
 │   ├── models          <- Defines internal data structures.
 │   │   ├── __init__.py
 │   │   └── models.py
-│   ├── routers         <- Contains all routers as well as their corrsponding Input and Output Models
+│   ├── routers         <- Contains all routers as well as their corresponding Input and Output Models
 │   │   ├── __init__.py
 │   │   └── ds_api
 │   │       ├── __init__.py

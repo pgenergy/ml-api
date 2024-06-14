@@ -22,8 +22,6 @@ def load_models():
         default_values = pkl.load(f)  # nosec
         models["device_classification"] = default_values    
 
-    print(models["device_classification"])
-
     return models
 
 
