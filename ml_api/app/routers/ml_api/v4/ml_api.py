@@ -38,10 +38,6 @@ async def classify_input(
     api_key: Annotated[str, Security(check_api_key)],
     body: Annotated[DeviceClassificationRequest, Depends(parse_protobuf_body)]
 ):
-    '''
-    See <a href="https://github.com/pgenergy/Protocol/blob/main/proto/Energyleaf-ML.proto">Energyleaf ML Protobuf
-    definitions</a> for Request and Response
-    '''
     predicted_devices = predict(body)
 
     return predicted_devices
