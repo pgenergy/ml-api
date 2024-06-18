@@ -6,7 +6,7 @@ uvicorn[standard]==0.18.0
 docker
 numpy
 pandas
-scikit-learn==1.4.2
+scikit-learn==1.5.0
 scipy
 
 protobuf
