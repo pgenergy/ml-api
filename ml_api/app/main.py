@@ -13,11 +13,25 @@ app = FastAPI(
     title="Energyleaf ML-API",
     description="""Energyleaf ML-API""",
     version=settings.api_version,
-    terms_of_service="#",
+    terms_of_service="https://github.com/pgenergy/ml-api/blob/main/LICENSE",
     contact={
         "name": "Energyleaf Uni Oldenburg",
         "url": "https://energyleaf.de",
     },
+    openapi_tags=[
+        {
+            "name": "v3",
+            "description": "JSON version"
+        },
+        {
+            "name": "v4",
+            "description": "Protobuf version",
+            "externalDocs": {
+                "description": "Energyleaf ML Protobuf definitions for Request and Response",
+                "url": "https://github.com/pgenergy/Protocol/blob/main/proto/Energyleaf-ML.proto",
+            }
+        }
+    ]
 )
 
 origins = [
@@ -36,8 +50,8 @@ app.add_middleware(
     expose_headers=["Content-Disposition"],
 )
 
-app.include_router(ml_api_v3.router, prefix="/v3", deprecated=True)
-app.include_router(ml_api_v4.router, prefix="/v4")
+app.include_router(ml_api_v3.router, prefix="/v3", tags=["v3"], deprecated=True)
+app.include_router(ml_api_v4.router, prefix="/v4", tags=["v4"])
 
 
 @app.on_event("startup")
