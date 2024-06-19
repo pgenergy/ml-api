@@ -12,4 +12,4 @@ COPY ./src /code/src
 COPY ./app /code/app
 COPY ./models /code/models
 
-CMD ["uvicorn", "app.main:app", "--forwarded-allow-ips", "*", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "app.main:app", "--forwarded-allow-ips", "*", "--host", "0.0.0.0", "--port", "8000"]
