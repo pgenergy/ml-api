@@ -1,5 +1,5 @@
 from fastapi.security import APIKeyHeader
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from fastapi import HTTPException, Security
 from typing import Dict, List
 from starlette import status

@@ -1,8 +1,6 @@
-
-import numpy as np
 import pickle as pkl
-import pandas as pd
-import os
+
+from app.settings import settings
 
 
 def load_models():
@@ -15,12 +13,12 @@ def load_models():
 
     print("models loaded from disk")
 
-    model_path = "./models/"
+    model_path = settings.models_path
     models = {}
     
     with open(f"{model_path}svm_electricity_device_classifier.pkl", "rb") as f:
         default_values = pkl.load(f)  # nosec
-        models["device_classification"] = default_values    
+        models["device_classification"] = default_values
 
     return models
 
