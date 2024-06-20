@@ -48,3 +48,15 @@ unauthorized_response = {
         }
     }
 }
+
+internalservererror_response = {
+    status.HTTP_500_INTERNAL_SERVER_ERROR: {
+        "content": {
+            "application/json": {
+                "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                }
+            }
+        }
+    }
+}

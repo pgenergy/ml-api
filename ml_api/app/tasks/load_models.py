@@ -15,7 +15,7 @@ def load_models():
 
     model_path = settings.models_path
     models = {}
-    
+
     with open(f"{model_path}svm_electricity_device_classifier.pkl", "rb") as f:
         default_values = pkl.load(f)  # nosec
         models["device_classification"] = default_values
