@@ -42,8 +42,6 @@ async def classify_input(
 ):
     try:
         predicted_devices = predict(body)
+        return predicted_devices
     except Exception as e:
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
-
-    return predicted_devices
-
