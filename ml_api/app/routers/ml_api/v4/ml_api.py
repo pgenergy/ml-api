@@ -6,7 +6,7 @@ from fastapi import APIRouter, Security, Response, Body, Depends
 from starlette import status
 from starlette.exceptions import HTTPException
 
-from app.models.models import check_api_key, unauthorized_response, internalservererror_response
+from app.models.models import check_api_key, general_responses
 from app.models.Energyleaf_ML_pb2 import DeviceClassificationRequest, DeviceClassificationResponse
 from src.classification.classify_devices import predict
 
@@ -35,7 +35,7 @@ def parse_protobuf_body(
 
 @router.post("/classify_devices",
              response_class=ProtobufResponse,
-             responses={**unauthorized_response, **internalservererror_response})
+             responses={**general_responses})
 async def classify_input(
     api_key: Annotated[str, Security(check_api_key)],
     body: Annotated[DeviceClassificationRequest, Depends(parse_protobuf_body)]

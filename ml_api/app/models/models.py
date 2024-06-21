@@ -37,7 +37,7 @@ def check_api_key(api_key: str = Security(api_key_header)) -> str:
     return api_key
 
 
-unauthorized_response = {
+general_responses = {
     status.HTTP_401_UNAUTHORIZED: {
         "content": {
             "application/json": {
@@ -46,10 +46,7 @@ unauthorized_response = {
                 }
             }
         }
-    }
-}
-
-internalservererror_response = {
+    },
     status.HTTP_500_INTERNAL_SERVER_ERROR: {
         "content": {
             "application/json": {
