@@ -1,5 +1,5 @@
 from fastapi.security import APIKeyHeader
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from fastapi import HTTPException, Security
 from typing import Dict, List
 from starlette import status
@@ -37,8 +37,17 @@ def check_api_key(api_key: str = Security(api_key_header)) -> str:
     return api_key
 
 
-unauthorized_response = {
+general_responses = {
     status.HTTP_401_UNAUTHORIZED: {
+        "content": {
+            "application/json": {
+                "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                }
+            }
+        }
+    },
+    status.HTTP_500_INTERNAL_SERVER_ERROR: {
         "content": {
             "application/json": {
                 "schema": {
