@@ -57,9 +57,9 @@ Install docker and run in command line
 $ docker-compose up
 ````
 
-After the image is built and the container has started you can start interacting with it under `http://localhost:8000/`
+After the image is built and the container has started you can start interacting with it under `http://localhost:80/`
 
 
 ## Access OpenAPI/Swagger Interface
 
-See `http://localhost:8000/docs` 
+See `http://localhost:80/docs` 
