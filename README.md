@@ -36,7 +36,7 @@ The directory structure looks like this:
 │
 ├── code                <- Experiment Code from the Start of the Project.
 │   ├── archive         <- Outdated Code, which will not be part of the Project.
-│   └── main            <- Experiments which are part of the result.
+│   └── training        <- The training code for the models.
 │
 ├── data                <- Storage for Data and Scripts to download or create data.
 ``` 
