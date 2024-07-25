@@ -35,7 +35,7 @@ app = FastAPI(
 )
 
 origins = [
-    "*", # TODO
+    "*",  # TODO
 ]
 if settings.origin:
     origins.append(settings.origin)
