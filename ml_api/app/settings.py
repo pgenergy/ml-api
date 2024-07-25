@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     """This class provides the applications settings
     Values are automatically loaded from env and from the `.env`-file
     """
-    model_config = SettingsConfigDict(env_file='.env')
+    model_config = SettingsConfigDict(env_file='.env', extra="ignore")
 
     origin: Optional[str] = None
     api_version: str = "v2"

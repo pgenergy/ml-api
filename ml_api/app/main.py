@@ -35,7 +35,7 @@ app = FastAPI(
 )
 
 origins = [
-    "http://localhost:4200",
+    "*", # TODO
 ]
 if settings.origin:
     origins.append(settings.origin)
