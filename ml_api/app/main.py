@@ -35,7 +35,9 @@ app = FastAPI(
 )
 
 origins = [
-    "*",  # TODO
+    "http://localhost:*",
+    "https://energyleaf.de",
+    "https://*.vercel.app"
 ]
 if settings.origin:
     origins.append(settings.origin)
