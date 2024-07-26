@@ -1,6 +1,6 @@
 import pickle as pkl
 
-from app.settings import settings
+from app.settings import get_settings
 
 
 def load_models():
@@ -13,6 +13,7 @@ def load_models():
 
     print("models loaded from disk")
 
+    settings = get_settings()
     model_path = settings.models_path
     models = {}
 

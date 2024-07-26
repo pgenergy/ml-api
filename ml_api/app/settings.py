@@ -1,10 +1,17 @@
 """ This module provides the applications settings
 """
 
-from typing import Optional, Annotated
+from enum import Enum
+from functools import lru_cache
+from typing import Annotated
 
 from pydantic import StringConstraints
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class Environments(str, Enum):
+    Development = "Development"
+    Production = "Production"
 
 
 class Settings(BaseSettings):
@@ -13,10 +20,17 @@ class Settings(BaseSettings):
     """
     model_config = SettingsConfigDict(env_file='.env', extra="ignore")
 
-    origin: Optional[str] = None
-    api_version: str = "v2"
     api_key: Annotated[str, StringConstraints(strip_whitespace=True, min_length=8)]
+    api_version: str = "v4"
+    environment: Environments = Environments.Production
     models_path: str = "./models/"
+    origins: frozenset[str] = ["http://localhost:*", "https://energyleaf.de"]
+
+    def __hash__(self):
+        return hash((type(self),) + tuple(self.__dict__.values()))
 
 
-settings = Settings()
+@lru_cache
+def get_settings():
+    return Settings()
+
