@@ -10,6 +10,7 @@ def predict(electricity_consumption: DeviceClassificationRequest) -> DeviceClass
     model = models["device_classification"]
     results = []
 
+    previous_power = 0
     for consumption in electricity_consumption.electricity:
 
         reading = pd.Series({
@@ -23,6 +24,7 @@ def predict(electricity_consumption: DeviceClassificationRequest) -> DeviceClass
         reading["Minute"] = pd.to_datetime(reading['Timestamp']).minute
         reading["Second"] = pd.to_datetime(reading['Timestamp']).second
         reading["power"] = consumption.power
+        reading["previous_power"] = previous_power
 
         reading = reading.drop(labels=['Timestamp']).to_frame().T
 
@@ -40,5 +42,6 @@ def predict(electricity_consumption: DeviceClassificationRequest) -> DeviceClass
             classification=class_probabilities
         )
         results.append(electricity)
+        previous_power = consumption.power
 
     return DeviceClassificationResponse(electricity=results)
