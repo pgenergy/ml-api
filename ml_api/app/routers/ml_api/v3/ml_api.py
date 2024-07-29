@@ -15,10 +15,10 @@ router = APIRouter()
 
 @router.post("/classify_devices",
              response_model=DeviceClassificationResponse,
-             responses={**general_responses})
+             responses={**general_responses},
+             dependencies=[Security(check_api_key)])
 def classify_input(
     user_request: DeviceClassificationRequest,
-    api_key:  Annotated[str, Security(check_api_key)],
     settings: Annotated[Settings, Depends(get_settings)]
 ):
     try:

@@ -2,8 +2,11 @@ import logging
 import sys
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Security
+from fastapi_health import health
 from fastapi.middleware.cors import CORSMiddleware
+
+from app.models.models import check_api_key
 from app.routers.ml_api.v3 import ml_api as ml_api_v3
 from app.routers.ml_api.v4 import ml_api as ml_api_v4
 from app.settings import Environments, Settings
@@ -60,5 +63,11 @@ app.add_middleware(
     expose_headers=["Content-Disposition"],
 )
 
+
+def mock_health():
+    return True
+
+
+app.add_api_route("/health", health([mock_health]), dependencies=[Security(check_api_key)])
 app.include_router(ml_api_v3.router, prefix="/v3", tags=["v3"], deprecated=True)
 app.include_router(ml_api_v4.router, prefix="/v4", tags=["v4"])

@@ -40,9 +40,9 @@ def parse_protobuf_body(
 
 @router.post("/classify_devices",
              response_class=ProtobufResponse,
-             responses={**general_responses})
+             responses={**general_responses},
+             dependencies=[Security(check_api_key)])
 async def classify_input(
-    api_key: Annotated[str, Security(check_api_key)],
     body: Annotated[DeviceClassificationRequest, Depends(parse_protobuf_body)],
     settings: Annotated[Settings, Depends(get_settings)]
 ):
