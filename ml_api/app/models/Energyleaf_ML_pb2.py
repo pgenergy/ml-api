@@ -15,15 +15,24 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13\x45nergyleaf-ML.proto\x12\renergyleaf_ml\"\xa5\x01\n\x1b\x44\x65viceClassificationRequest\x12P\n\x0b\x65lectricity\x18\x01 \x03(\x0b\x32;.energyleaf_ml.DeviceClassificationRequest.ElectricityInput\x1a\x34\n\x10\x45lectricityInput\x12\x11\n\ttimestamp\x18\x01 \x01(\t\x12\r\n\x05power\x18\x02 \x01(\x01\"\xed\x02\n\x1c\x44\x65viceClassificationResponse\x12R\n\x0b\x65lectricity\x18\x01 \x03(\x0b\x32=.energyleaf_ml.DeviceClassificationResponse.ElectricityOutput\x1a\xf8\x01\n\x11\x45lectricityOutput\x12\x11\n\ttimestamp\x18\x01 \x01(\t\x12\r\n\x05power\x18\x02 \x01(\x01\x12\x1f\n\x17\x64ominant_classification\x18\x03 \x01(\t\x12i\n\x0e\x63lassification\x18\x04 \x03(\x0b\x32Q.energyleaf_ml.DeviceClassificationResponse.ElectricityOutput.ClassificationEntry\x1a\x35\n\x13\x43lassificationEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13\x45nergyleaf-ML.proto\x12\renergyleaf_ml\"\\\n\x1f\x44\x65viceClassificationPeakRequest\x12\x39\n\x05peaks\x18\x01 \x03(\x0b\x32*.energyleaf_ml.DeviceClassificationRequest\"\xbd\x01\n\x1b\x44\x65viceClassificationRequest\x12P\n\x0b\x65lectricity\x18\x01 \x03(\x0b\x32;.energyleaf_ml.DeviceClassificationRequest.ElectricityInput\x12\x0f\n\x02id\x18\x02 \x01(\tH\x00\x88\x01\x01\x1a\x34\n\x10\x45lectricityInput\x12\x11\n\ttimestamp\x18\x01 \x01(\t\x12\r\n\x05power\x18\x02 \x01(\x01\x42\x05\n\x03_id\"^\n DeviceClassificationPeakResponse\x12:\n\x05peaks\x18\x01 \x03(\x0b\x32+.energyleaf_ml.DeviceClassificationResponse\"\x85\x03\n\x1c\x44\x65viceClassificationResponse\x12R\n\x0b\x65lectricity\x18\x01 \x03(\x0b\x32=.energyleaf_ml.DeviceClassificationResponse.ElectricityOutput\x12\x0f\n\x02id\x18\x02 \x01(\tH\x00\x88\x01\x01\x1a\xf8\x01\n\x11\x45lectricityOutput\x12\x11\n\ttimestamp\x18\x01 \x01(\t\x12\r\n\x05power\x18\x02 \x01(\x01\x12\x1f\n\x17\x64ominant_classification\x18\x03 \x01(\t\x12i\n\x0e\x63lassification\x18\x04 \x03(\x0b\x32Q.energyleaf_ml.DeviceClassificationResponse.ElectricityOutput.ClassificationEntry\x1a\x35\n\x13\x43lassificationEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01\x42\x05\n\x03_idb\x06proto3')
 
 
 
+_DEVICECLASSIFICATIONPEAKREQUEST = DESCRIPTOR.message_types_by_name['DeviceClassificationPeakRequest']
 _DEVICECLASSIFICATIONREQUEST = DESCRIPTOR.message_types_by_name['DeviceClassificationRequest']
 _DEVICECLASSIFICATIONREQUEST_ELECTRICITYINPUT = _DEVICECLASSIFICATIONREQUEST.nested_types_by_name['ElectricityInput']
+_DEVICECLASSIFICATIONPEAKRESPONSE = DESCRIPTOR.message_types_by_name['DeviceClassificationPeakResponse']
 _DEVICECLASSIFICATIONRESPONSE = DESCRIPTOR.message_types_by_name['DeviceClassificationResponse']
 _DEVICECLASSIFICATIONRESPONSE_ELECTRICITYOUTPUT = _DEVICECLASSIFICATIONRESPONSE.nested_types_by_name['ElectricityOutput']
 _DEVICECLASSIFICATIONRESPONSE_ELECTRICITYOUTPUT_CLASSIFICATIONENTRY = _DEVICECLASSIFICATIONRESPONSE_ELECTRICITYOUTPUT.nested_types_by_name['ClassificationEntry']
+DeviceClassificationPeakRequest = _reflection.GeneratedProtocolMessageType('DeviceClassificationPeakRequest', (_message.Message,), {
+  'DESCRIPTOR' : _DEVICECLASSIFICATIONPEAKREQUEST,
+  '__module__' : 'Energyleaf_ML_pb2'
+  # @@protoc_insertion_point(class_scope:energyleaf_ml.DeviceClassificationPeakRequest)
+  })
+_sym_db.RegisterMessage(DeviceClassificationPeakRequest)
+
 DeviceClassificationRequest = _reflection.GeneratedProtocolMessageType('DeviceClassificationRequest', (_message.Message,), {
 
   'ElectricityInput' : _reflection.GeneratedProtocolMessageType('ElectricityInput', (_message.Message,), {
@@ -38,6 +47,13 @@ DeviceClassificationRequest = _reflection.GeneratedProtocolMessageType('DeviceCl
   })
 _sym_db.RegisterMessage(DeviceClassificationRequest)
 _sym_db.RegisterMessage(DeviceClassificationRequest.ElectricityInput)
+
+DeviceClassificationPeakResponse = _reflection.GeneratedProtocolMessageType('DeviceClassificationPeakResponse', (_message.Message,), {
+  'DESCRIPTOR' : _DEVICECLASSIFICATIONPEAKRESPONSE,
+  '__module__' : 'Energyleaf_ML_pb2'
+  # @@protoc_insertion_point(class_scope:energyleaf_ml.DeviceClassificationPeakResponse)
+  })
+_sym_db.RegisterMessage(DeviceClassificationPeakResponse)
 
 DeviceClassificationResponse = _reflection.GeneratedProtocolMessageType('DeviceClassificationResponse', (_message.Message,), {
 
@@ -67,14 +83,18 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   _DEVICECLASSIFICATIONRESPONSE_ELECTRICITYOUTPUT_CLASSIFICATIONENTRY._options = None
   _DEVICECLASSIFICATIONRESPONSE_ELECTRICITYOUTPUT_CLASSIFICATIONENTRY._serialized_options = b'8\001'
-  _DEVICECLASSIFICATIONREQUEST._serialized_start=39
-  _DEVICECLASSIFICATIONREQUEST._serialized_end=204
-  _DEVICECLASSIFICATIONREQUEST_ELECTRICITYINPUT._serialized_start=152
-  _DEVICECLASSIFICATIONREQUEST_ELECTRICITYINPUT._serialized_end=204
-  _DEVICECLASSIFICATIONRESPONSE._serialized_start=207
-  _DEVICECLASSIFICATIONRESPONSE._serialized_end=572
-  _DEVICECLASSIFICATIONRESPONSE_ELECTRICITYOUTPUT._serialized_start=324
-  _DEVICECLASSIFICATIONRESPONSE_ELECTRICITYOUTPUT._serialized_end=572
-  _DEVICECLASSIFICATIONRESPONSE_ELECTRICITYOUTPUT_CLASSIFICATIONENTRY._serialized_start=519
-  _DEVICECLASSIFICATIONRESPONSE_ELECTRICITYOUTPUT_CLASSIFICATIONENTRY._serialized_end=572
+  _DEVICECLASSIFICATIONPEAKREQUEST._serialized_start=38
+  _DEVICECLASSIFICATIONPEAKREQUEST._serialized_end=130
+  _DEVICECLASSIFICATIONREQUEST._serialized_start=133
+  _DEVICECLASSIFICATIONREQUEST._serialized_end=322
+  _DEVICECLASSIFICATIONREQUEST_ELECTRICITYINPUT._serialized_start=263
+  _DEVICECLASSIFICATIONREQUEST_ELECTRICITYINPUT._serialized_end=315
+  _DEVICECLASSIFICATIONPEAKRESPONSE._serialized_start=324
+  _DEVICECLASSIFICATIONPEAKRESPONSE._serialized_end=418
+  _DEVICECLASSIFICATIONRESPONSE._serialized_start=421
+  _DEVICECLASSIFICATIONRESPONSE._serialized_end=810
+  _DEVICECLASSIFICATIONRESPONSE_ELECTRICITYOUTPUT._serialized_start=555
+  _DEVICECLASSIFICATIONRESPONSE_ELECTRICITYOUTPUT._serialized_end=803
+  _DEVICECLASSIFICATIONRESPONSE_ELECTRICITYOUTPUT_CLASSIFICATIONENTRY._serialized_start=750
+  _DEVICECLASSIFICATIONRESPONSE_ELECTRICITYOUTPUT_CLASSIFICATIONENTRY._serialized_end=803
 # @@protoc_insertion_point(module_scope)
