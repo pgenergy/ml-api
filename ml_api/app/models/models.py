@@ -1,7 +1,7 @@
 from fastapi.security import APIKeyHeader
 from pydantic import BaseModel
 from fastapi import HTTPException, Security
-from typing import Dict, List
+from typing import List
 from starlette import status
 
 from app.settings import Settings
@@ -16,19 +16,26 @@ class ElectricityInput(BaseModel):
     power: float
 
 
-class ElectricityOutput(BaseModel):
-    timestamp: str
-    power: float
-    dominant_classification: str
-    classification: Dict[str, float]
-
-
-class DeviceClassificationRequest(BaseModel):
+class PeakInput(BaseModel):
+    peak_id: str
     electricity: List[ElectricityInput]
 
 
+class DeviceClassificationRequest(BaseModel):
+    peaks: List[PeakInput]
+
+
+
+class ClassifiedDevices(BaseModel):
+    name: str
+    confidence: float
+
+class PeakOutput(BaseModel):
+    peak_id: str
+    devices: List[ClassifiedDevices]
+
 class DeviceClassificationResponse(BaseModel):
-    electricity: List[ElectricityOutput]
+    peaks: List[PeakOutput]
 
 
 def check_api_key(api_key: str = Security(api_key_header)) -> str:

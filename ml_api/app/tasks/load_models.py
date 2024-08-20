@@ -1,7 +1,5 @@
-import pickle as pkl
-
+from tensorflow.keras.models import load_model
 from app.settings import settings
-
 
 def load_models():
     """
@@ -15,11 +13,10 @@ def load_models():
 
     model_path = settings.models_path
     models = {}
-
-    with open(f"{model_path}svm_electricity_device_classifier.pkl", "rb") as f:
-        default_values = pkl.load(f)  # nosec
-        models["device_classification"] = default_values
-
+    model_file = f"{model_path}peak_classifier_08-19-2024.keras"
+    
+    models["device_classification"] = load_model(model_file)
+    
     return models
 
 
