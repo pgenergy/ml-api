@@ -3,33 +3,25 @@ from pydantic import BaseModel
 from fastapi import HTTPException, Security
 from typing import List
 from starlette import status
-
 from app.settings import Settings
 
 settings = Settings()
-
 api_key_header = APIKeyHeader(name="x-api-key", auto_error=False)
-
 
 class ElectricityInput(BaseModel):
     timestamp: str
     power: float
-
 class PeakInput(BaseModel):
     peak_id: str
     electricity: List[ElectricityInput]
-
 class DeviceClassificationRequest(BaseModel):
     peaks: List[PeakInput]
-
 class ClassifiedDevices(BaseModel):
     name: str
     confidence: float
-
 class PeakOutput(BaseModel):
     peak_id: str
     devices: List[ClassifiedDevices]
-
 class DeviceClassificationResponse(BaseModel):
     peaks: List[PeakOutput]
 
