@@ -41,12 +41,7 @@ async def classify_input(
     body: Annotated[DeviceClassificationPeakRequest, Depends(parse_protobuf_body)]
 ):
     try:
-        peaks = []
-        for peak in body.peaks:
-            prediction = predict(peak)
-            prediction.id = peak.id
-            peaks.append(prediction)
-
-        return {peaks}
+        predicted_devices = predict(body)
+        return predicted_devices
     except Exception as e:
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
