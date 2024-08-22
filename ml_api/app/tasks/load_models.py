@@ -13,7 +13,7 @@ def load_models():
 
     model_path = settings.models_path
     models = {}
-    model_file = f"{model_path}peak_classifier_08-19-2024.keras"
+    model_file = f"{model_path}appliance_classification_model.keras"
     
     models["device_classification"] = load_model(model_file)
     
