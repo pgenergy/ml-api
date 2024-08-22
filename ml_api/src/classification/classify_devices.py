@@ -19,12 +19,14 @@ device_mapping = {
 }
 device_mapping_inverse = {v: k for k, v in device_mapping.items()}
 
+
 def preprocess_electricity_data(electricity_data):
     # Extract the power values from ElectricityInput
     power_values = [entry.power for entry in electricity_data]
     # Convert the list into a numpy array that model can handle inputs
     time_series_array = np.expand_dims(np.array(power_values), axis=-1)
     return time_series_array
+
 
 def predict(electricity_consumption: DeviceClassificationRequest) -> DeviceClassificationResponse:
     results = []
