@@ -34,16 +34,12 @@ def predict(electricity_consumption: DeviceClassificationRequest) -> DeviceClass
     model = models["device_classification"]
 
     for peaks in electricity_consumption.peaks:
-
         time_series_padded = preprocess_electricity_data(peaks.electricity)
-
         predicted_probabilities = model.predict(np.array([time_series_padded]))
-
         classified_devices = []
         for i, prob in enumerate(predicted_probabilities[0]):
             device_name = device_mapping_inverse.get(i, f"Unknown Device {i}")
             classified_devices.append(ClassifiedDevices(name=device_name, confidence=float(prob)))
-
         results.append(PeakOutput(peak_id=peaks.peak_id, devices=classified_devices))
 
     return DeviceClassificationResponse(peaks=results)
