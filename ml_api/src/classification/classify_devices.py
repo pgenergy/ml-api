@@ -2,9 +2,9 @@ import numpy as np
 
 from app.tasks.load_models import models
 from app.models.models import (
-    ClassifiedDevices, 
-    DeviceClassificationRequest, 
-    DeviceClassificationResponse, 
+    ClassifiedDevices,
+    DeviceClassificationRequest,
+    DeviceClassificationResponse,
     PeakOutput
 )
 
