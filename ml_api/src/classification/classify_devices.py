@@ -38,5 +38,5 @@ def predict(electricity_consumption: DeviceClassificationRequest) -> DeviceClass
         for i, prob in enumerate(predicted_probabilities[0]):
             device_name = device_mapping_inverse.get(i, f"Unknown Device {i}")
             classified_devices.append(ClassifiedDevices(name=device_name, confidence=float(prob)))
-        results.append(PeakOutput(peak_id=peaks.peak_id, devices=classified_devices))
+        results.append(PeakOutput(id=peaks.id, devices=classified_devices))
     return DeviceClassificationResponse(peaks=results)
