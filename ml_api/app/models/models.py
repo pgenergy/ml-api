@@ -15,7 +15,7 @@ class ElectricityInput(BaseModel):
 
 
 class PeakInput(BaseModel):
-    peak_id: str
+    id: str
     electricity: List[ElectricityInput]
 
 
@@ -29,7 +29,7 @@ class ClassifiedDevices(BaseModel):
 
 
 class PeakOutput(BaseModel):
-    peak_id: str
+    id: str
     devices: List[ClassifiedDevices]
 
 
