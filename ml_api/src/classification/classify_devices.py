@@ -11,11 +11,9 @@ from app.models.models import (
 device_mapping = {
     "washing_machine": 0,
     "dishwasher": 1,
-    "dryer": 2,
-    "freezer": 3,
-    "fridge": 4,
-    "micro_wave_oven": 5,
-    "coffee": 6
+    "freezer": 2,
+    "fridge": 3,
+    "micro_wave_oven": 4
 }
 device_mapping_inverse = {v: k for k, v in device_mapping.items()}
 
