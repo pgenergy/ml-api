@@ -1,5 +1,6 @@
 from tensorflow.keras.models import load_model
 from app.settings import settings
+from os import path
 
 
 def load_models():
@@ -12,7 +13,7 @@ def load_models():
     print("models loaded from disk")
     model_path = settings.models_path
     models = {}
-    model_file = f"{model_path}appliance_classification_model_08-26-2024.keras"
+    model_file = path.join(model_path, "appliance_classification_model-2024-08-27.keras")
     models["device_classification"] = load_model(model_file)
     return models
 
