@@ -2,7 +2,6 @@
 """
 
 from typing import Optional, Annotated
-
 from pydantic import StringConstraints
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
