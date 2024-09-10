@@ -4,6 +4,7 @@ from os import path
 
 import pandas as pd
 
+
 def load_models():
     """
     load the models from disk
