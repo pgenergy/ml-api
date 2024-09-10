@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Security, Query
 
-from typing import Annotated, List
+from typing import Annotated
 
 from app.models.general import check_api_key, general_responses
 from app.models.co2prediction import Models, Co2PredictionRequest, Co2PredictionResponse
