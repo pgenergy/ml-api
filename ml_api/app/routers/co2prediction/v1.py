@@ -12,7 +12,7 @@ import numpy as np
 router = APIRouter()
 
 
-def calculate_average_prediction(row, prediction_model):
+def calculate_avg_prediction(row, prediction_model):
     timestamp = row["timestamp"]
 
     series = None
@@ -45,7 +45,7 @@ def co2prediction(
         model = Models.historic_average
 
     if model == Models.historic_average:
-        data["value"] = data.apply(lambda row: calculate_average_prediction(row, models["co2prediction"]), axis="columns")
+        data["value"] = data.apply(lambda row: calculate_avg_prediction(row, models["co2prediction"]), axis="columns")
 
     return {
         "used_model": model,

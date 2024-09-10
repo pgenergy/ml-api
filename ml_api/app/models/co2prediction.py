@@ -23,6 +23,7 @@ class Co2PredictionOutput(BaseModel):
     timestamp: datetime
     value: float
 
+
 class Co2PredictionResponse(BaseModel):
     used_model: Models
     data: list[Co2PredictionOutput]
