@@ -2,8 +2,8 @@ from fastapi import APIRouter, Security
 from starlette import status
 from starlette.exceptions import HTTPException
 
-from app.models.models import check_api_key, general_responses
-from app.models.models import DeviceClassificationRequest, DeviceClassificationResponse
+from app.models.general import check_api_key, general_responses
+from app.models.device_classification import DeviceClassificationRequest, DeviceClassificationResponse
 from src.classification.classify_devices import predict
 
 router = APIRouter()

@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers.ml_api.v3 import ml_api as ml_api_v3
 from app.routers.ml_api.v4 import ml_api as ml_api_v4
+from app.routers.co2prediction import v1 as co2prediction_v1
 from app.settings import Settings
 
 settings = Settings()
@@ -52,6 +53,7 @@ app.add_middleware(
     expose_headers=["Content-Disposition"],
 )
 
+app.include_router(co2prediction_v1.router, prefix="/v1", tags=["v1"])
 app.include_router(ml_api_v3.router, prefix="/v3", tags=["v3"], deprecated=True)
 app.include_router(ml_api_v4.router, prefix="/v4", tags=["v4"])
 
