@@ -134,3 +134,5 @@ site
 **/*.csv
 **/*.json
 fly.toml
+
+!models/co2_regression.csv
