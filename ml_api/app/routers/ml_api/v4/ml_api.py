@@ -6,7 +6,7 @@ from fastapi import APIRouter, Security, Response, Body, Depends
 from starlette import status
 from starlette.exceptions import HTTPException
 
-from app.models.models import check_api_key, general_responses
+from app.models.general import check_api_key, general_responses
 from app.models.Energyleaf_ML_pb2 import DeviceClassificationPeakRequest, DeviceClassificationPeakResponse
 from src.classification.classify_devices import predict
 
