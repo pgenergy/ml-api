@@ -11,14 +11,16 @@ import numpy as np
 
 router = APIRouter()
 
+spring_autumn = [2, 3, 9, 10]
+winter = [11, 12, 1]
 
 def calculate_avg_prediction(row, prediction_model):
     timestamp = row["timestamp"]
 
     series = None
-    if timestamp.month in (11, 12, 1):
+    if timestamp.month in winter:
         series = prediction_model["hi"]
-    elif timestamp.month in (2, 3, 9, 10):
+    elif timestamp.month in spring_autumn:
         series = prediction_model["md"]
     elif 4 <= timestamp.month <= 8:
         series = prediction_model["lw"]
@@ -38,11 +40,17 @@ def co2prediction(
         model: Annotated[Models, Query()] = Models.default,
         api_key: str = Security(check_api_key)):
 
-    data = pd.DataFrame([res.model_dump() for res in body.data])
-    data["timestamp"] = pd.to_datetime(data["timestamp"])
-
     if model == Models.default:
         model = Models.historic_average
+
+    if len(body.data) == 0:
+        return {
+            "used_model": model,
+            "data": []
+        }
+
+    data = pd.DataFrame([res.model_dump() for res in body.data])
+    data["timestamp"] = pd.to_datetime(data["timestamp"])
 
     if model == Models.historic_average:
         data["value"] = data.apply(lambda row: calculate_avg_prediction(row, models["co2prediction"]), axis="columns")
