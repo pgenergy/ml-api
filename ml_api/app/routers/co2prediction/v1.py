@@ -14,6 +14,7 @@ router = APIRouter()
 spring_autumn = [2, 3, 9, 10]
 winter = [11, 12, 1]
 
+
 def calculate_avg_prediction(row, prediction_model):
     timestamp = row["timestamp"]
 
